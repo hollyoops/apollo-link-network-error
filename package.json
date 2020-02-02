@@ -1,6 +1,6 @@
 {
   "name": "apollo-link-network-error",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "An Apollo Link that you can dynamic ignore/change the network error.",
   "main": "./lib/index.js",
   "jsnext:main": "./lib/index.js",
