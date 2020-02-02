@@ -2,6 +2,14 @@ import { ApolloLink, Observable, execute } from 'apollo-link'
 import { NetworkErrorLink, NetworkErrorHandler } from '../NetworkErrorLink'
 import gql from 'graphql-tag'
 
+export const FAKE_QUERY = gql`
+  query FakeQuery {
+    stub {
+      id
+    }
+  }
+`
+
 const createNetworkErrorLink = (handler: NetworkErrorHandler) => {
   const nextLink = new ApolloLink(
     () =>
@@ -14,13 +22,6 @@ const createNetworkErrorLink = (handler: NetworkErrorHandler) => {
 }
 
 export const getFakeNetworkErrorLink = (handler: NetworkErrorHandler) => {
-  const fakeQuery = gql`
-    query FakeQuery {
-      stub {
-        id
-      }
-    }
-  `
   const link = createNetworkErrorLink(handler)
-  return execute(link, { query: fakeQuery })
+  return execute(link, { query: FAKE_QUERY })
 }

@@ -52,18 +52,18 @@ const client = new ApolloClient({
 
 ```javascript
 import { ApolloClient } from 'apollo-client'
-import { cacheFirstHandler } from 'apollo-link-network-error'
+import { cacheFirstNetworkErrorLink } from 'apollo-link-network-error'
 
 const cache = new InMemoryCache()
-// Create the default interceptor
-const errorIgnoreLink = cacheFirstHandler(cache)
+// Create the cache first network error link
+const errorIgnoreLink = cacheFirstNetworkErrorLink(cache)
 const client = new ApolloClient({
   cache,
-  errorIgnoreLink,
+  from([errorLink, errorIgnoreLink, httpLink]),
 })
 ```
 
-_Note: Once set up, you can add the flag in context (i.e. `context: { __skipNetworkError__: true }`)._
+_Note: Once set up, you can add the flag in context (i.e. `context: { __skipErrorAccordingCache__: true }`)._
 
 ### Sending request
 
@@ -73,7 +73,7 @@ client.query({
   fetchPolicy: 'cache-and-network',
   query: /* Your query here */,
   // Enable error ignore
-  context: { __skipNetworkError__: true }
+  context: { __skipErrorAccordingCache__: true }
   variables: /* Your variables here */
 });
 
@@ -86,7 +86,7 @@ client.query({
     fetchPolicy='cache-and-network'
     query={/* Your query here */}
     variables={/* Your variables here */}
-    context={{__skipNetworkError__: true }}
+    context={{__skipErrorAccordingCache__: true }}
   >
     {props.children}
 </Query>

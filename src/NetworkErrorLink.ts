@@ -12,7 +12,7 @@ export interface INetworkResponse {
   forward?: NextLink
 }
 
-type ResultData = {
+export type ResultData = {
   [key: string]: any
 }
 type NetworkErrorHandlerResult = ResultData | Promise<ResultData> | null
