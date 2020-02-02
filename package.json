@@ -1,0 +1,38 @@
+{
+  "name": "apollo-link-network-error",
+  "version": "0.0.1",
+  "description": "An Apollo Link that you can dynamic ignore/change the network error.",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "tsc -p .",
+    "bundle": "rollup -c",
+    "commit": "git-cz",
+    "clean": "rimraf lib/*",
+    "prebuild": "npm run clean",
+    "postbuild": "npm run bundle",
+    "prepublish": "npm run clean && npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "apollo",
+    "apollo-link",
+    "offline",
+    "network",
+    "error",
+    "ignore"
+  ],
+  "author": "hollyoops <haoer715@gmail.com>",
+  "repository": "git@github.com:hollyoops/apollo-link-network-error.git",
+  "license": "MIT",
+  "dependencies": {
+    "typescript": "^3.7.5"
+  },
+  "devDependencies": {
+    "git-cz": "^4.2.0",
+    "prettier": "^1.19.1",
+    "rimraf": "^3.0.1",
+    "rollup": "^1.31.0",
+    "rollup-plugin-terser": "^5.2.0",
+    "rollup-plugin-typescript2": "^0.25.3"
+  }
+}

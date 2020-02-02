@@ -1,0 +1,18 @@
+# Compiled
+dist
+lib
+
+.idea
+.vscode
+
+.DS_Store
+
+# Dependency directories
+node_modules
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+coverage
