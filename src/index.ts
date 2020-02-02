@@ -1,5 +1,5 @@
+import { cacheFirstHandler, ICacheShape } from './handler/cacheFirstHandler'
 import { NetworkErrorLink } from './NetworkErrorLink'
-import { ICacheShape, cacheFirstHandler } from './handler/cacheFirstHandler'
 
 const cacheFirstNetworkErrorLink = (cache: ICacheShape): NetworkErrorLink =>
   new NetworkErrorLink(cacheFirstHandler(cache))

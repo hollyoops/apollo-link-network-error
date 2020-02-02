@@ -1,16 +1,20 @@
 {
   "compilerOptions": {
+    "declaration": true,
+    "declarationDir": "lib",
+    "outDir": "lib",
     "allowJs": true,
+    "sourceMap": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "isolatedModules": true,
     "jsx": "react",
     "lib": ["es6"],
     "moduleResolution": "node",
-    "noEmit": true,
     "strict": true,
     "noImplicitAny": false,
     "target": "esnext"
   },
-  "exclude": ["node_modules"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "**/*.test.ts"]
 }

@@ -1,9 +1,9 @@
 import {
   ApolloLink,
+  FetchResult,
+  NextLink,
   Observable,
   Operation,
-  NextLink,
-  FetchResult,
 } from 'apollo-link'
 
 export interface INetworkResponse {

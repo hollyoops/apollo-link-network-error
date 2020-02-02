@@ -1,5 +1,5 @@
-import { INetworkResponse } from '../NetworkErrorLink'
 import { DocumentNode } from 'apollo-link'
+import { INetworkResponse } from '../NetworkErrorLink'
 
 interface Query<TVariables> {
   query: DocumentNode
