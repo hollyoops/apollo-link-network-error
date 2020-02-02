@@ -11,7 +11,7 @@
     "prebuild": "npm run clean",
     "postbuild": "npm run bundle",
     "prepublish": "npm run clean && npm run build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "keywords": [
     "apollo",
@@ -25,14 +25,42 @@
   "repository": "git@github.com:hollyoops/apollo-link-network-error.git",
   "license": "MIT",
   "dependencies": {
+    "apollo-link": "^1.2.13",
     "typescript": "^3.7.5"
   },
   "devDependencies": {
+    "@types/jest": "^25.1.1",
     "git-cz": "^4.2.0",
+    "graphql": "^14.6.0",
+    "graphql-tag": "^2.10.1",
+    "jest": "^25.1.0",
     "prettier": "^1.19.1",
     "rimraf": "^3.0.1",
     "rollup": "^1.31.0",
     "rollup-plugin-terser": "^5.2.0",
-    "rollup-plugin-typescript2": "^0.25.3"
+    "rollup-plugin-typescript2": "^0.25.3",
+    "ts-jest": "^25.1.0"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*)\\.(test|spec)\\.[jt]sx?$",
+    "timers": "fake",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx"
+    ],
+    "coverageReporters": [
+      "text",
+      "lcov"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.{ts,tsx}",
+      "!src/testUtils/*",
+      "!src/index.ts"
+    ]
   }
 }

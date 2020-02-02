@@ -23,7 +23,20 @@ import { ApolloClient } from 'apollo-client'
 import { NetworkErrorLink } from 'apollo-link-network-error'
 
 const onNetworkError = ({ error, operation }) => {
-  // deal with the network error
+  if ('some_condition_1') {
+    // return a new error to replace
+    throw error
+  }
+
+  if ('some_condition_2') {
+    // not return error and will take following obj as response
+    return {
+      test: ok,
+    }
+  }
+
+  // do nothing with the network error (still return raw error)
+  return null
 }
 
 const errorIgnoreLink = new NetworkErrorLink(onNetworkError)

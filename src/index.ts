@@ -1,3 +1,2 @@
-export function hello() {
-  console.log('Hello word')
-}
+import { NetworkErrorLink } from './NetworkErrorLink'
+export default { NetworkErrorLink }
