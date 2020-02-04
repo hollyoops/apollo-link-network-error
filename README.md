@@ -1,8 +1,10 @@
 # apollo-link-network-error
 
-An Apollo Link that you can dynamic ignore/change the network error. and you can easy to implement the **Network-first feature**(with `network-only` _fetchPolicy_) and **Offline-first feature** (with `network-only` _fetchPolicy_)
+An Apollo Link that you can dynamic ignore/change the network error. and you can easy to implement the **Network-first feature**(with `network-only` _fetchPolicy_) and **Offline-first feature** (with `cache-and-network` _fetchPolicy_)
 
 Basically this means your UI's queries will always work if the requested data is available in the local cache and it will always keep the cached data consistent with your server data if it can be reached.
+
+> NOTE: Currently we only tested it on react-native. If there are some issues on browser, just create an issue or make a PR
 
 ## Install
 
@@ -27,7 +29,7 @@ const onNetworkError = ({ error, operation }) => {
   if ('some_condition_2') {
     // option2: not return error and will take following object as response
     return {
-      test: ok,
+      info: somedata,
     }
   }
 
@@ -56,6 +58,8 @@ const client = new ApolloClient({
   cache,
   from([errorLink, errorIgnoreLink, httpLink]),
 })
+
+persistCache({ cache, storage: AsyncStorage })
 ```
 
 _Note: Once set up, you can add the flag in context (i.e. `context: { __skipErrorAccordingCache__: true }`)._
