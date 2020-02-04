@@ -1,5 +1,5 @@
 import { getFakeNetworkErrorLink } from '../testUtils/utils'
-import { NetworkErrorHandler } from '../NetworkErrorLink'
+import { NetworkErrorHandler, NetworkErrorLink } from '../NetworkErrorLink'
 
 describe('NetworkErrorLink', () => {
   const assertError = (done: jest.DoneCallback) => (
@@ -30,10 +30,10 @@ describe('NetworkErrorLink', () => {
     jest.runAllTimers()
   }
 
-  it('should return raw network error when error handler return null', done => {
-    const handler = () => null
-    const networkError = Error('network error')
-    assertError(done)(handler, networkError)
+  it('should return null when call request and there no next link', () => {
+    const handler = () => ({})
+    const link = new NetworkErrorLink(handler)
+    expect(link.request({} as any, undefined)).toBe(null)
   })
 
   it('should return customer error when error handler return a customer error', done => {
@@ -58,7 +58,13 @@ describe('NetworkErrorLink', () => {
 
   it('should return response when error handler return an obj by async', done => {
     const customerData = { user: 'holly' }
-    const handler = () => Promise.resolve(customerData)
+    const handler = () =>
+      new Promise((resolve, _) => {
+        setTimeout(() => {
+          resolve(customerData)
+        }, 300)
+        jest.runAllTimers()
+      })
     assertNext(done)(handler, customerData)
   })
 })

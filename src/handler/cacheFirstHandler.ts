@@ -25,14 +25,21 @@ export interface ICacheShape {
 }
 
 export const cacheFirstHandler = (cache: ICacheShape) => ({
+  networkError: error,
   operation,
 }: INetworkResponse) => {
   if (!operation.getContext().__skipErrorAccordingCache__) {
-    return null
+    throw error
   }
 
-  return cache.read<any>({
+  const result = cache.read<any>({
     query: operation.query,
     variables: operation.variables,
   })
+
+  if (!result) {
+    throw error
+  }
+
+  return result
 }

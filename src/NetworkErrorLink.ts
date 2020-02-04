@@ -15,11 +15,10 @@ export interface INetworkResponse {
 export type ResultData = {
   [key: string]: any
 }
-type NetworkErrorHandlerResult = ResultData | Promise<ResultData> | null
 
 export type NetworkErrorHandler = (
   error: INetworkResponse
-) => NetworkErrorHandlerResult
+) => ResultData | Promise<ResultData>
 
 export class NetworkErrorLink extends ApolloLink {
   private handler: NetworkErrorHandler
@@ -44,14 +43,10 @@ export class NetworkErrorLink extends ApolloLink {
             forward,
           }
 
-          try {
-            const result = this.handler(errorData)
-            this.promisifyResult(result)
-              .then(data => observer.next({ data }))
-              .catch(error => observer.error(error || networkError))
-          } catch (e) {
-            observer.error(e)
-          }
+          Promise.resolve(errorData)
+            .then(this.handler)
+            .then(data => observer.next({ data }))
+            .catch(error => observer.error(error || networkError))
         },
         complete: observer.complete.bind(observer),
       })
@@ -60,15 +55,5 @@ export class NetworkErrorLink extends ApolloLink {
         if (subscription) subscription.unsubscribe()
       }
     })
-  }
-
-  private promisifyResult(obj: NetworkErrorHandlerResult): Promise<ResultData> {
-    if (obj instanceof Promise) {
-      return obj
-    }
-
-    return new Promise((resolve, reject) =>
-      !obj ? reject(null) : resolve(obj)
-    )
   }
 }
