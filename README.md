@@ -1,6 +1,6 @@
 # apollo-link-network-error
 
-An Apollo Link that you can dynamic ignore/change the network error. and you can easy to implement the **offline-first feature** with this link and `cache-and-network` _fetchPolicy_
+An Apollo Link that you can dynamic ignore/change the network error. and you can easy to implement the **offline-first feature** with this link and _fetchPolicy_(`network-only` or `cache-and-network`) 
 
 > Note: As all we know, apollo client provide the `fetchPolicy: 'cache-and-network'`. It will use local data and then try to fetch the network data. However, it errors if the server can't be reached or no network connection
 
@@ -67,10 +67,14 @@ _Note: Once set up, you can add the flag in context (i.e. `context: { __skipErro
 
 ### Sending request
 
+> 'network-only' + cacheFirstNetworkErrorLink: This a kind of like the network-first behavior, It try to visit remote data first, if the server can't be reached or no network, it will use the cache data,
+if no cache data, it will throw a network error 
+
 ```javascript
-// - offline-first query
+// - network-first query
+// Note: You can not use 'cache-and-network' with client.query. this is the limitation from apollo
 client.query({
-  fetchPolicy: 'cache-and-network',
+  fetchPolicy: 'network-only',
   query: /* Your query here */,
   // Enable error ignore
   context: { __skipErrorAccordingCache__: true }
@@ -79,15 +83,26 @@ client.query({
 
 ```
 
+> 'cache-and-network' + cacheFirstNetworkErrorLink: This a kind of like the cache-and-network behavior, It try to visit cache data first, then update the data with network. if the server can't be reached or no network, it still try to use cache data. if no cached data, it will throw a network error
+
 ### React Apollo
 
 ```html
 <Query
-    fetchPolicy='cache-and-network'
+    fetchPolicy='cache-and-network' //or network-only
     query={/* Your query here */}
     variables={/* Your variables here */}
     context={{__skipErrorAccordingCache__: true }}
   >
     {props.children}
 </Query>
+```
+### React-hook
+
+```javascript
+const { data, error } = useQuery(YOUR_QUERY, {
+    variables: {/* Your variables here */},
+    fetchPolicy: 'cache-and-network', //or network-only
+    context: { __skipErrorAccordingCache__: true },
+  })
 ```
