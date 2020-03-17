@@ -45,7 +45,10 @@ export class NetworkErrorLink extends ApolloLink {
 
           Promise.resolve(errorData)
             .then(this.handler)
-            .then(data => observer.next({ data }))
+            .then(data => {
+              observer.next({ data })
+              observer.complete()
+            })
             .catch(error => observer.error(error || networkError))
         },
         complete: observer.complete.bind(observer),
