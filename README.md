@@ -48,14 +48,13 @@ const client = new ApolloClient({
 ### Setup
 
 ```javascript
-import { ApolloClient } from 'apollo-client'
+import { ApolloClient, ApolloLink } from '@apollo/client'
 import { cacheFirstNetworkErrorLink } from 'apollo-link-network-error'
-import { ApolloLink } from '@apollo/client';
 
 const cache = new InMemoryCache()
 // Create the cache first network error link
 const errorIgnoreLink = cacheFirstNetworkErrorLink(cache)
-const link = ApolloLink.from([errorLink, errorIgnoreLink, httpLink]);
+const link = ApolloLink.from([errorLink, errorIgnoreLink, httpLink])
 const client = new ApolloClient({
   cache,
   link,
