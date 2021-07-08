@@ -50,7 +50,7 @@ const client = new ApolloClient({
 ```javascript
 import { ApolloClient } from 'apollo-client'
 import { cacheFirstNetworkErrorLink } from 'apollo-link-network-error'
-import {ApolloLink} from '@apollo/client';
+import { ApolloLink } from '@apollo/client';
 
 const cache = new InMemoryCache()
 // Create the cache first network error link
