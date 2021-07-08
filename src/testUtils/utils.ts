@@ -1,4 +1,4 @@
-import { ApolloLink, Observable, execute } from 'apollo-link'
+import { ApolloLink, Observable, execute } from '@apollo/client';
 import { NetworkErrorLink, NetworkErrorHandler } from '../NetworkErrorLink'
 import gql from 'graphql-tag'
 

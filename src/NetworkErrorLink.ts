@@ -4,7 +4,7 @@ import {
   NextLink,
   Observable,
   Operation,
-} from 'apollo-link'
+} from '@apollo/client'
 
 export interface INetworkResponse {
   networkError: any
