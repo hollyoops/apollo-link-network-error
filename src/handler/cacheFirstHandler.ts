@@ -1,4 +1,4 @@
-import { DocumentNode } from 'apollo-link'
+import { DocumentNode } from '@apollo/client';
 import { INetworkResponse } from '../NetworkErrorLink'
 
 interface Query<TVariables> {

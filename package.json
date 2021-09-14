@@ -38,7 +38,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "apollo-link": "^1.2.13"
+    "@apollo/client": "^3.3.21"
   },
   "devDependencies": {
     "@types/jest": "^25.1.1",
